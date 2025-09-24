@@ -19,11 +19,10 @@ class _ChatScreenState extends State<ChatScreen> {
   CollectionReference messages = FirebaseFirestore.instance.collection(
     kMessageCollection,
   );
-  CollectionReference users = FirebaseFirestore.instance.collection('users');
 
   @override
   Widget build(BuildContext context) {
-    String email = ModalRoute.of(context)!.settings.arguments as String;
+    var email = ModalRoute.of(context)!.settings.arguments;
 
     return StreamBuilder(
       stream: messages.orderBy('createdAt').snapshots(),
@@ -59,7 +58,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     itemBuilder: (context, index) {
                       return PubleChat(
                         message: messageList[index],
-                        email: email,
+                        email: email as String,
                       );
                     },
                   ),
